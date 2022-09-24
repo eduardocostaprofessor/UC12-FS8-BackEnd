@@ -6,7 +6,17 @@ using FS11__UC12_ER2.Classes;
 
 PessoaFisica eduardo = new PessoaFisica();
 
-eduardo.nome = "Eduardo Costa";
+// eduardo.dataNascimento = "1982/07/20";
+;
+System.Console.WriteLine( eduardo.ValidarDataNascimento("1982/07/20") );
 
-System.Console.WriteLine("Nome do Cabra: " + eduardo.nome);
-System.Console.WriteLine($"Nome do Cara: {eduardo.nome}");
+
+
+
+// PessoaFisica jose = new PessoaFisica();
+// PessoaJuridica robertoImoveis = new PessoaJuridica();
+
+// eduardo.nome = "Eduardo Costa";
+
+// System.Console.WriteLine("Nome do Cabra: " + eduardo.nome);
+// System.Console.WriteLine($"Nome do Cara: {eduardo.nome}");

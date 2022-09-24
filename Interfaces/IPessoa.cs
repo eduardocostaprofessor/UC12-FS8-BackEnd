@@ -7,7 +7,7 @@ namespace FS11__UC12_ER2.Interfaces
 {
     public interface IPessoa
     {
-      public abstract double PagarImposto(double rendimento);  
+      public abstract double PagarImposto(double rendimento);
       public abstract double Teste(double rendimento);  
     }
 }

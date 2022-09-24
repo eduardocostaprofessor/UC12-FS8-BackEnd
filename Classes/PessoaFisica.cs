@@ -9,11 +9,27 @@ namespace FS11__UC12_ER2.Classes
     public class PessoaFisica : Pessoa, IPessoaFisica
     {
         public string ?cpf { get; set; }
-        public DateTime ?dataNascimento { get; set; }
+        public string ?dataNascimento { get; set; }
 
-        public bool ValidarDataNascimento(DateTime dataNasc)
+        public bool ValidarDataNascimento(string dataNasc)//"1982/07/20"
         {
-            throw new NotImplementedException();
+            DateTime dataConvertida;
+
+            if( DateTime.TryParse(dataNasc, out dataConvertida)  ) {
+                // System.Console.WriteLine(dataConvertida);
+            
+                DateTime dataAtual = DateTime.Today;
+                double idade = (dataAtual - dataConvertida).TotalDays / 365;
+
+                if(idade >= 18) {
+                    return true;
+                } else {
+                    return false;
+                }
+                // System.Console.WriteLine(idade);
+            } else {
+                return false;
+            }
         }
     }
 }
