@@ -104,7 +104,7 @@ Console.WriteLine($"Cnpj {senai.cnpj} é válido? {metodosPJ.ValidarCnpj(senai.c
 // String data = "30/09/2022";
 // bool dtValida = Regex.IsMatch(data, @"^\d{2}/\d{2}/\d{4}$");
 
-// Console.WriteLine($"A data {data} é válida? {dtValida}");
+// Console.WriteLine($"A data {data} é válida? {dtValida}"); 
 
 
 

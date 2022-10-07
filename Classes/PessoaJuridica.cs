@@ -37,7 +37,6 @@ namespace FS11__UC12_ER2.Classes
             }
 
             return false;//else geral
-
         }//fim do método ValidarCnpj
     }
 }
