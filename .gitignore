@@ -15,3 +15,4 @@ $RECYCLE.BIN/
 # Visual Studio Code
 .vscode/
 bin/
+obj/

@@ -55,8 +55,8 @@ Endereco novoEndSenai = new Endereco();
 
 PessoaJuridica senai = new PessoaJuridica();
     senai.razaoSocial = "Serviço de Nacional de Aprendizagem Industrial";
-    senai.cnpj = "12.222.444/0001-90";
-    // senai.cnpj = "12222444000190";
+    // senai.cnpj = "12.222.444/0001-90";
+    senai.cnpj = "12222444000190";
     senai.nome = "SENAI";
     senai.rendimento = 100000.80;
     senai.endereco = novoEndSenai;
