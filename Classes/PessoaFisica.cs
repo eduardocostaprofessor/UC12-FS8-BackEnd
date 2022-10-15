@@ -11,6 +11,23 @@ namespace FS11__UC12_ER2.Classes
         public string ?cpf { get; set; }
         public string ?dataNascimento { get; set; }
 
+        public override double PagarImposto(double rendimento)
+        {
+            if( rendimento <= 1500 )
+            {
+                
+                return rendimento; // isento
+            } 
+            else if( rendimento >= 1501 && rendimento <= 5000)
+            {
+                
+                return rendimento -  (rendimento / 100) * 3; // 3%
+            } 
+
+            //quem ganha acima de 5001
+            return rendimento - (rendimento / 100) * 5; //5%
+        }
+
         public bool ValidarDataNascimento(string dataNasc)//"1982/07/20"
         {
             DateTime dataConvertida;

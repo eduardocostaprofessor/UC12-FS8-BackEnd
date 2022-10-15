@@ -10,17 +10,16 @@ namespace FS11__UC12_ER2.Classes
     {
         public string ?nome { get; set; }
         public Endereco? endereco { get; set; }
-        public double ?rendimento { get; set; }
+        public double rendimento { get; set; }
+
+        public abstract double PagarImposto(double rendimento);
 
 
 
 
 
         // implementando o médoto PagarImposto da IPessoa (seguindo o contrato)
-        double IPessoa.PagarImposto(double rendimento)
-        {
-            throw new NotImplementedException();
-        }
+
 
         double IPessoa.Teste(double rendimento)
         {

@@ -1,125 +1,124 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-// criar uma pessoa física
-// preencher o nome
-// imprimir no console
-
 using FS11__UC12_ER2.Classes;
-
-// PessoaFisica eduardo = new PessoaFisica();
-
-// eduardo.dataNascimento = "1982/07/20";
-// System.Console.WriteLine( eduardo.ValidarDataNascimento("1982/07/20") ); 
-
-// Console.WriteLine($"*************************");
-// Console.WriteLine();
-
-// string nome = "Eduardo";
-// Console.WriteLine($"{nome.Substring(0, 2)}");
-
-
-// PessoaFisica jose = new PessoaFisica();
-// PessoaJuridica robertoImoveis = new PessoaJuridica();
-
-// eduardo.nome = "Eduardo Costa";
-
-// System.Console.WriteLine("Nome do Cabra: " + eduardo.nome);
-// System.Console.WriteLine($"Nome do Cara: {eduardo.nome}");
-// Console.WriteLine($"Qual é o seu nome?");
-
-//preenchendo um objeto de Endereço
-// Endereco novoEndereco = new Endereco();
-//          novoEndereco.logradouro = "Rua de Casa";
-//          novoEndereco.numero = 50;
-//          novoEndereco.comercial = false;
-
-// PessoaFisica eduardo = new PessoaFisica();
-//        eduardo.nome = "Eduardo Costa";
-//        eduardo.rendimento = 1000.99;
-//        eduardo.endereco = novoEndereco;
-
-// //exibir os dados do eduardo
-// Console.WriteLine($"Nome: {eduardo.nome}");
-// Console.WriteLine($"Rendimento: R${eduardo.rendimento}");
-// Console.WriteLine($"Endereço:");
-
-// Console.WriteLine($"\tRua: {eduardo.endereco.logradouro}");
-// Console.WriteLine($"\tNúmero: {eduardo.endereco.numero}");
-// Console.WriteLine($"\tComercial: {eduardo.endereco.comercial}");
-
-Endereco novoEndSenai = new Endereco();
-    novoEndSenai.logradouro = "Rua Niterói";
-    novoEndSenai.numero = 180;
-    novoEndSenai.comercial = true;
-
-PessoaJuridica senai = new PessoaJuridica();
-    senai.razaoSocial = "Serviço de Nacional de Aprendizagem Industrial";
-    // senai.cnpj = "12.222.444/0001-90";
-    senai.cnpj = "12222444000190";
-    senai.nome = "SENAI";
-    senai.rendimento = 100000.80;
-    senai.endereco = novoEndSenai;
-
+//Objetos utilitários genéricos
 PessoaJuridica metodosPJ = new PessoaJuridica();
+PessoaFisica metodosPF = new PessoaFisica();
 
 
-Console.WriteLine($"Cnpj {senai.cnpj} é válido? {metodosPJ.ValidarCnpj(senai.cnpj)}");
+//Cabeçalho boas vindas
+Console.WriteLine(@$"
+==================================================
+|     Bem vindo ao sistema de cadastro de        |
+|        Pessoas Físicas e Jurídicas             |
+==================================================
+");
 
-//exibir os dados do eduardo
-// Console.WriteLine($"Fantasia: {senai.nome}");
-// Console.WriteLine($"Razão: {senai.razaoSocial}");
-// Console.WriteLine($"CNPJ:{senai.cnpj}");
-// Console.WriteLine($"Rendimento: R$ {senai.rendimento}");
+Utils.BarraCarregamento("Iniciando o Sistema", 3, 500);
 
-// Console.WriteLine($"\tRua: {senai.endereco.logradouro}");
-// Console.WriteLine($"\tNúmero: {senai.endereco.numero}");
-// Console.WriteLine($"\tComercial: {senai.endereco.comercial}");
+// ************************* MENU DE OPÇÕES **********************
+string? opcao;
 
-// Console.WriteLine(@$"
-//                 Fantasia: {senai.nome}
-//     $Razão: {senai.razaoSocial}
-// ");
+do
+{
+    Console.WriteLine(@$"
+==================================================
+|         Escolha uma das seguintes opções       |
+|------------------------------------------------|
+|               1 - Pessoa Física                |
+|               2 - Pessoa Jurídica              |
+|                                                |
+|               0 - Sair                         |
+==================================================
+");
 
+    Console.Write("Opção: ");
+    opcao = Console.ReadLine();//espera o usuário digitar
+    Console.Clear();
 
-// ***************** SUBSTRING *****************
-//             0123456
-// string nome = "Eduardo";
-// Console.WriteLine(nome);
-// Console.WriteLine( nome.Substring(0, 3)  );
-// Console.WriteLine( nome.Substring(1, 2)  );
-// Console.WriteLine( nome.Substring(4, 1)  );
+    switch (opcao)
+    {
+        case "1": // Pessoa Física
+            Utils.BarraCarregamento("Cadastrando", 3, 300);
+            // Endereço da pessoa física
+            Endereco endPf = new Endereco();
+            endPf.logradouro = "Rua de Casa";
+            endPf.numero = 123;
+            endPf.comercial = false;
+            //cadastra a pessoa física
+            PessoaFisica joao = new PessoaFisica();
+            joao.nome = "João da Silva";
+            joao.cpf = "12345670977";
+            joao.dataNascimento = "20/09/1990";
+            joao.rendimento = 3590.98;
+            joao.endereco = endPf;
 
-// string cnpj = "12.222.444/0001-90";
-// string cnpj2 = "12222444000190";
-// Console.WriteLine( cnpj.Substring(11, 4)  );
-// Console.WriteLine( cnpj2.Substring(8, 4)  );
+            //exibir os dados
+            Console.WriteLine(@$"
+                Nome: {joao.nome}
+                Endereço: {joao.endereco.logradouro}
+                Número: {joao.endereco.numero}
+                Endereço Comercial: {joao.endereco.comercial}
+                Data Nascimento {joao.dataNascimento}
+                Maior de Idade: {metodosPF.ValidarDataNascimento(joao.dataNascimento)}
+                CPF: {joao.cpf}
+                Rendimento Bruto: R${joao.rendimento}
+                Rendimento Líquido: R${metodosPF.PagarImposto(joao.rendimento)}
+            ");
 
-// Console.WriteLine($"CNPJ TAMNHO: {cnpj.Length}");
-// Console.WriteLine($"CNPJ TAMNHO: {cnpj2.Length}");
+            //  parada no sistema
+            Console.Write($"Digite ENTER para continuar ... ");
+            Console.ReadLine();
+            Console.Clear();
+            break;
 
+        case "2":// Pessoa Jurídica
+            //Cadastro
+            Endereco novoEndSenai = new Endereco();
+            novoEndSenai.logradouro = "Rua Niterói";
+            novoEndSenai.numero = 180;
+            novoEndSenai.comercial = true;
 
-// ***************** REGEX *****************
+            PessoaJuridica senai = new PessoaJuridica();
+            senai.razaoSocial = "Serviço de Nacional de Aprendizagem Industrial";
+            senai.cnpj = "12.222.444/0002-90";
+            // senai.cnpj = "122224440002909";
+            senai.nome = "SENAI";
+            senai.rendimento = 12000;
+            senai.endereco = novoEndSenai;
 
-// String data = "30/09/2022";
-// bool dtValida = Regex.IsMatch(data, @"^\d{2}/\d{2}/\d{4}$");
+            // Exibir os dados
+            Console.WriteLine(@$"
+                Razão Social: {senai.razaoSocial}
+                Nome Fantasia: {senai.nome}
+                Endereço: {senai.endereco.logradouro}
+                Número: {senai.endereco.numero}
+                Endereço Comercial: {senai.endereco.comercial}
+                CNPJ: {senai.cnpj}
+                CNPJ Válido: {metodosPJ.ValidarCnpj(senai.cnpj)}
+                Rendimento Bruto: R${senai.rendimento}
+                Rendimento Líquido: R${metodosPJ.PagarImposto(senai.rendimento)}
+            ");
 
-// Console.WriteLine($"A data {data} é válida? {dtValida}"); 
+            //  parada no sistema
+            Console.Write($"Digite ENTER para continuar ... ");
+            Console.ReadLine();
+            Console.Clear();
+            break;
 
+        case "0":// Sair
+            Console.WriteLine($"Obrigado por utilizar o nosso sistema !!!");
+            break;
 
+        default:
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Opção Inválida, escolha outra opção");
+            Console.ResetColor();
+            break;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+} while (opcao != "0");
 
 
 
