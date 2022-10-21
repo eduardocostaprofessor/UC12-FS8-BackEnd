@@ -5,7 +5,7 @@ using FS11__UC12_ER2.Classes;
 //Objetos utilitários genéricos
 PessoaJuridica metodosPJ = new PessoaJuridica();
 PessoaFisica metodosPF = new PessoaFisica();
-List<PessoaFisica> cadastroPf = new List<PessoaFisica>();//cira uma lista de pessoa física (Array de Objetos)
+List<PessoaFisica> listaPf = new List<PessoaFisica>();//cira uma lista de pessoa física (Array de Objetos)
 
 
 //Cabeçalho boas vindas
@@ -46,6 +46,7 @@ do
             string opcaoPf;
             do //SUBMENU DE PESSOA FÍSICA
             {
+                Console.Clear();
                 Console.WriteLine(@$"
 ==================================================
 |         Escolha uma das seguintes opções       |
@@ -62,17 +63,13 @@ do
 
                 switch (opcaoPf)
                 {
-                    case "1":
-                        //aqui vamos cadastrar uma pessoa física
-                        Console.WriteLine($"cadastrar uma pessoa física");
-
+                    case "1": //aqui vamos cadastrar uma pessoa física
                         //Endereço
                         Endereco endPf = new Endereco();
                         Console.WriteLine($"Qual é o endereço?");
                         endPf.logradouro = Console.ReadLine();
                         Console.WriteLine($"Qual é número?");
                         endPf.numero =  int.Parse(Console.ReadLine());
-
                         Console.WriteLine($"Endereço é comercial? S/N");
                         string enderecoComercial = Console.ReadLine();
                         
@@ -98,12 +95,39 @@ do
                         novaPf.endereco = endPf;
 
                         // guarda a pessoa física na lista
-                        cadastroPf.Add(novaPf);
+                        listaPf.Add(novaPf);
                     break;
                     
                     case "2":
                         //aqui vamos listar pessoa física
                         Console.WriteLine($"listar uma pessoa física");
+
+
+                        if(listaPf.Count > 0) //lista
+                        {
+                            foreach (PessoaFisica pf in listaPf) //imprime cada pessoa da lista
+                            {
+                                Console.WriteLine(@$"
+Nome: {pf.nome}
+Endereço: {pf.endereco.logradouro}
+Número: {pf.endereco.numero}
+Endereço Comercial: {pf.endereco.comercial}
+Data Nascimento {pf.dataNascimento}
+Maior de Idade: {metodosPF.ValidarDataNascimento(pf.dataNascimento)}
+CPF: {pf.cpf}
+Rendimento Bruto: R${pf.rendimento}
+Rendimento Líquido: R${metodosPF.PagarImposto(pf.rendimento)}
+");
+                            }
+                        }
+                        else 
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine($"Lista Vazia");
+                            Console.ResetColor();
+                            Thread.Sleep(2000);
+                        }
+
                     break;
                     
                     case "0":
