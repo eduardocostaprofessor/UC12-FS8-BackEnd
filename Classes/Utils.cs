@@ -21,5 +21,16 @@ namespace FS11__UC12_ER2.Classes
             Console.ResetColor();//volta as cores de fundo e fonte para o padrão
             System.Console.WriteLine();//pular uma linha
         }
+
+        public static void ParadaNoConsole(string txt)
+        {
+            //fazer parada no sistema
+            Console.WriteLine(txt);
+            Console.Write($"Tecle ENTER para continuar ...");
+            Console.ReadLine();
+
+        }
+
+
     }
 }

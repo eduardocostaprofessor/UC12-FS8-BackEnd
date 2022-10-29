@@ -1,0 +1,7 @@
+﻿using ( StreamWriter arquivo = new StreamWriter ($"./DadosPf/PessoaFisica.txt", append:  true) )
+{
+    arquivo.WriteLine("Rafael, Rua lá de Casa");
+    arquivo.WriteLine("Roberto, Rua a Esquina");
+    // arquivo.WriteLine("João da Alberto, Rua da outra Esquina");
+    arquivo.Close();
+}

@@ -41,8 +41,8 @@ do
     switch (opcao)
     {
         case "1": // Pessoa Física
-            // Utils.BarraCarregamento("Cadastrando", 3, 300);
-    
+                  // Utils.BarraCarregamento("Cadastrando", 3, 300);
+
             string opcaoPf;
             do //SUBMENU DE PESSOA FÍSICA
             {
@@ -65,100 +65,113 @@ do
                 {
                     case "1": //aqui vamos cadastrar uma pessoa física
                         //Endereço
-                        Endereco endPf = new Endereco();
-                        Console.WriteLine($"Qual é o endereço?");
-                        endPf.logradouro = Console.ReadLine();
-                        Console.WriteLine($"Qual é número?");
-                        endPf.numero =  int.Parse(Console.ReadLine());
-                        Console.WriteLine($"Endereço é comercial? S/N");
-                        string enderecoComercial = Console.ReadLine();
-                        
-                        if(enderecoComercial.ToUpper() == "S")
-                        {
-                            endPf.comercial = true;
-                        } 
-                        else 
-                        {
-                            endPf.comercial = false;
-                        }
+                        // Endereco endPf = new Endereco();
+                        // Console.WriteLine($"Qual é o endereço?");
+                        // endPf.logradouro = Console.ReadLine();
+                        // Console.WriteLine($"Qual é número?");
+                        // endPf.numero = int.Parse(Console.ReadLine());
+                        // Console.WriteLine($"Endereço é comercial? S/N");
+                        // string enderecoComercial = Console.ReadLine();
+
+                        // if (enderecoComercial.ToUpper() == "S")
+                        // {
+                        //     endPf.comercial = true;
+                        // }
+                        // else
+                        // {
+                        //     endPf.comercial = false;
+                        // }
 
                         //Dados Pessoais
                         PessoaFisica novaPf = new PessoaFisica();
-                        Console.WriteLine($"Qual é o nome?");
-                        novaPf.nome = Console.ReadLine();
-                        Console.WriteLine($"Qual é o cpf?");
-                        novaPf.cpf = Console.ReadLine();
-                        Console.WriteLine($"Qual é a data de nascimento? Ex: 20/09/1990");
-                        novaPf.dataNascimento = Console.ReadLine();
-                        Console.WriteLine($"Qual é rendimento?");
-                        novaPf.rendimento =  double.Parse(Console.ReadLine()) ;
-                        novaPf.endereco = endPf;
+                        novaPf.PreencherDadosTeste();
+                        //Cadastrar no TXT
+
+                        using (StreamWriter arquivo = new StreamWriter($"./DadosPf/PessoaFisica.txt", append: true))
+                        {
+                            arquivo.WriteLine($"{novaPf.nome},{novaPf.endereco.logradouro},{novaPf.endereco.numero}");
+                            arquivo.Close();
+                        }
+
+
+                        // Console.WriteLine($"Qual é o nome?");
+                        // novaPf.nome = Console.ReadLine();
+                        // Console.WriteLine($"Qual é o cpf?");
+                        // novaPf.cpf = Console.ReadLine();
+                        // Console.WriteLine($"Qual é a data de nascimento? Ex: 20/09/1990");
+                        // novaPf.dataNascimento = Console.ReadLine();
+                        // Console.WriteLine($"Qual é rendimento?");
+                        // novaPf.rendimento = double.Parse(Console.ReadLine());
+                        // novaPf.endereco = endPf;
 
                         // guarda a pessoa física na lista
-                        listaPf.Add(novaPf);
-                    break;
-                    
+                        // listaPf.Add(novaPf);
+
+
+                        //fazer parada no sistema
+                        Utils.ParadaNoConsole("Pessoa Física cadastrada com sucesso");
+                        break;
+
                     case "2":
                         //aqui vamos listar pessoa física
                         Console.WriteLine($"listar uma pessoa física");
-
-
-                        if(listaPf.Count > 0) //lista
+                        using (StreamReader arquivo = new StreamReader($"./DadosPf/PessoaFisica.txt"))
                         {
-                            foreach (PessoaFisica pf in listaPf) //imprime cada pessoa da lista
+                            string linha;
+
+                            while ( (linha = arquivo.ReadLine()) != null )
                             {
-                                Console.WriteLine(@$"
-Nome: {pf.nome}
-Endereço: {pf.endereco.logradouro}
-Número: {pf.endereco.numero}
-Endereço Comercial: {pf.endereco.comercial}
-Data Nascimento {pf.dataNascimento}
-Maior de Idade: {metodosPF.ValidarDataNascimento(pf.dataNascimento)}
-CPF: {pf.cpf}
-Rendimento Bruto: R${pf.rendimento}
-Rendimento Líquido: R${metodosPF.PagarImposto(pf.rendimento)}
-");
+                                Console.WriteLine($"{linha}");
+                                
                             }
                         }
-                        else 
-                        {
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine($"Lista Vazia");
-                            Console.ResetColor();
-                            Thread.Sleep(2000);
-                        }
 
-                    break;
-                    
+                        // if (listaPf.Count > 0) //lista
+                        // {
+                        //     foreach (PessoaFisica pf in listaPf) //imprime cada pessoa da lista
+                        //     {
+                        //         pf.Imprimir(); //vide o método - imprime todas as propriedades da classe 
+
+                        //     }
+
+                        // }
+                        // else
+                        // {
+                        //     Console.ForegroundColor = ConsoleColor.DarkRed;
+                        //     Console.WriteLine($"Lista Vazia");
+                        //     Console.ResetColor();
+                        //     Thread.Sleep(2000);
+                        // }
+
+                        //fazer parada no sistema
+                        Utils.ParadaNoConsole("*** Fim da listagem ***");
+                        break;
+
                     case "0":
                         //voltar ao menu anterior
                         Console.WriteLine($"voltar ao menu anterior");
-                    break;
+                        break;
 
                     default:
-                         //voltar ao menu anterior
+                        //voltar ao menu anterior
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"opção inválida do submenu");
+                        //fazer parada no sistema
+                        Utils.ParadaNoConsole("opção inválida do submenu");
                         Console.ResetColor();
-                    break;
+                        break;
                 }
 
 
             } while (opcaoPf != "0");
 
-
-            //  parada no sistema
-            Console.Write($"Digite ENTER para continuar ... ");
-            Console.ReadLine();
             Console.Clear();
             break;
 
         case "2":// Pessoa Jurídica
-            
+
 
             //  parada no sistema
-            Console.Write($"Digite ENTER para continuar ... ");
-            Console.ReadLine();
+            Utils.ParadaNoConsole("Digite ENTER para continuar ... ");
             Console.Clear();
             break;
 
@@ -181,31 +194,6 @@ Rendimento Líquido: R${metodosPF.PagarImposto(pf.rendimento)}
 
 
 
- // Endereço da PESSOA FÍSICA
-    // Endereco endPf = new Endereco();
-    // endPf.logradouro = "Rua de Casa";
-    // endPf.numero = 123;
-    // endPf.comercial = false;
-    // //cadastra a pessoa física
-    // PessoaFisica joao = new PessoaFisica();
-    // joao.nome = "João da Silva";
-    // joao.cpf = "12345670977";
-    // joao.dataNascimento = "20/09/1990";
-    // joao.rendimento = 3590.98;
-    // joao.endereco = endPf;
-
-    // //exibir os dados
-    // Console.WriteLine(@$"
-    //     Nome: {joao.nome}
-    //     Endereço: {joao.endereco.logradouro}
-    //     Número: {joao.endereco.numero}
-    //     Endereço Comercial: {joao.endereco.comercial}
-    //     Data Nascimento {joao.dataNascimento}
-    //     Maior de Idade: {metodosPF.ValidarDataNascimento(joao.dataNascimento)}
-    //     CPF: {joao.cpf}
-    //     Rendimento Bruto: R${joao.rendimento}
-    //     Rendimento Líquido: R${metodosPF.PagarImposto(joao.rendimento)}
-    // ");
 
 
 
@@ -214,29 +202,65 @@ Rendimento Líquido: R${metodosPF.PagarImposto(pf.rendimento)}
 
 
 
-//Cadastro
-    // Endereco novoEndSenai = new Endereco();
-    // novoEndSenai.logradouro = "Rua Niterói";
-    // novoEndSenai.numero = 180;
-    // novoEndSenai.comercial = true;
 
-    // PessoaJuridica senai = new PessoaJuridica();
-    // senai.razaoSocial = "Serviço de Nacional de Aprendizagem Industrial";
-    // senai.cnpj = "12.222.444/0002-90";
-    // // senai.cnpj = "122224440002909";
-    // senai.nome = "SENAI";
-    // senai.rendimento = 12000;
-    // senai.endereco = novoEndSenai;
 
-    // // Exibir os dados
-    // Console.WriteLine(@$"
-    //     Razão Social: {senai.razaoSocial}
-    //     Nome Fantasia: {senai.nome}
-    //     Endereço: {senai.endereco.logradouro}
-    //     Número: {senai.endereco.numero}
-    //     Endereço Comercial: {senai.endereco.comercial}
-    //     CNPJ: {senai.cnpj}
-    //     CNPJ Válido: {metodosPJ.ValidarCnpj(senai.cnpj)}
-    //     Rendimento Bruto: R${senai.rendimento}
-    //     Rendimento Líquido: R${metodosPJ.PagarImposto(senai.rendimento)}
-    // ");
+
+
+
+// CÓDIGO PRA USAR DE BASE - LEITURA E EXIBIÇÃO MOCADA/FIXA DE DADOS
+
+// Endereço da PESSOA FÍSICA
+// Endereco endPf = new Endereco();
+// endPf.logradouro = "Rua de Casa";
+// endPf.numero = 123;
+// endPf.comercial = false;
+
+// //cadastra a pessoa física
+// PessoaFisica joao = new PessoaFisica();
+// joao.nome = "João da Silva";
+// joao.cpf = "12345670977";
+// joao.dataNascimento = "20/09/1990";
+// joao.rendimento = 3590.98;
+// joao.endereco = endPf;
+
+// //exibir os dados pessoa física
+// Console.WriteLine(@$"
+//     Nome: {joao.nome}
+//     Endereço: {joao.endereco.logradouro}
+//     Número: {joao.endereco.numero}
+//     Endereço Comercial: {joao.endereco.comercial}
+//     Data Nascimento {joao.dataNascimento}
+//     Maior de Idade: {metodosPF.ValidarDataNascimento(joao.dataNascimento)}
+//     CPF: {joao.cpf}
+//     Rendimento Bruto: R${joao.rendimento}
+//     Rendimento Líquido: R${metodosPF.PagarImposto(joao.rendimento)}
+// ");
+
+
+
+//Cadastro Pessoa Jurídica
+// Endereco novoEndSenai = new Endereco();
+// novoEndSenai.logradouro = "Rua Niterói";
+// novoEndSenai.numero = 180;
+// novoEndSenai.comercial = true;
+
+// PessoaJuridica senai = new PessoaJuridica();
+// senai.razaoSocial = "Serviço de Nacional de Aprendizagem Industrial";
+// senai.cnpj = "12.222.444/0002-90";
+// // senai.cnpj = "122224440002909";
+// senai.nome = "SENAI";
+// senai.rendimento = 12000;
+// senai.endereco = novoEndSenai;
+
+// // Exibir os dados Pessoa Jurídica
+// Console.WriteLine(@$"
+//     Razão Social: {senai.razaoSocial}
+//     Nome Fantasia: {senai.nome}
+//     Endereço: {senai.endereco.logradouro}
+//     Número: {senai.endereco.numero}
+//     Endereço Comercial: {senai.endereco.comercial}
+//     CNPJ: {senai.cnpj}
+//     CNPJ Válido: {metodosPJ.ValidarCnpj(senai.cnpj)}
+//     Rendimento Bruto: R${senai.rendimento}
+//     Rendimento Líquido: R${metodosPJ.PagarImposto(senai.rendimento)}
+// ");
